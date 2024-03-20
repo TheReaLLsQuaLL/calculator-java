@@ -190,6 +190,14 @@ public class Calculator extends JFrame {
 		buttonPanel.add(btnEqUp);
 		
 		JButton btnPlusMin = new JButton("+/-");
+		btnPlusMin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String temp = display.getText();
+				char first = temp.charAt(0);
+				temp.substring(1, temp.length());
+				display.setText("-" + temp);
+			}
+		});
 		buttonPanel.add(btnPlusMin);
 		
 		JButton btn0 = new JButton("0");
