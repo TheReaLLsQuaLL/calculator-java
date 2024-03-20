@@ -146,6 +146,11 @@ public class Calculator extends JFrame {
 		buttonPanel.add(btnMul);
 		
 		JButton btnClear = new JButton("C");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clear(e.getActionCommand());
+			}
+		});
 		buttonPanel.add(btnClear);
 		
 		JButton btn1 = new JButton("1");
@@ -198,6 +203,9 @@ public class Calculator extends JFrame {
 		JButton btnDot = new JButton(".");
 		btnDot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String n = display.getText();
+				if(n.contains(".")) return;
+				processDigit(e.getActionCommand() );
 			}
 		});
 		buttonPanel.add(btnDot);
@@ -240,6 +248,15 @@ public class Calculator extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
+	protected void clear(String actionCommand) {
+		String temp = display.getText();
+		if(temp.length() > 1) {
+			display.setText(temp.substring(0,temp.length()-1));
+		}else {
+			display.setText("");
+		}
+	}
+
 	protected void setOperator(String actionCommand) {
 		operatorFirst = display.getText();
 		operator = actionCommand;
@@ -249,6 +266,5 @@ public class Calculator extends JFrame {
 
 	protected void processDigit(String actionCommand) {
 		display.setText( display.getText() + actionCommand);
-		
 	}
 }
