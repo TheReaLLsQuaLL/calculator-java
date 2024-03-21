@@ -186,16 +186,26 @@ public class Calculator extends JFrame {
 		});
 		buttonPanel.add(btnPlus);
 		
-		JButton btnEqUp = new JButton("");
-		buttonPanel.add(btnEqUp);
+		JButton btnPercent = new JButton("%");
+		btnPercent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setOperator(e.getActionCommand());
+			}
+		});
+		buttonPanel.add(btnPercent);
 		
 		JButton btnPlusMin = new JButton("+/-");
 		btnPlusMin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String temp = display.getText();
 				char first = temp.charAt(0);
-				temp.substring(1, temp.length());
-				display.setText("-" + temp);
+				if(first == '-') {
+					temp = temp.substring(1);
+					display.setText(temp);
+				}else {
+					display.setText("-" + temp);
+					}
+				
 			}
 		});
 		buttonPanel.add(btnPlusMin);
@@ -243,6 +253,9 @@ public class Calculator extends JFrame {
 					display.setText("" + result);
 				} else if(operator == "/") {
 					result = oF  / oL;
+					display.setText("" + result);
+				}else if(operator == "%") {
+					result = oF * oL / 100;
 					display.setText("" + result);
 				} else {
 					display.setText("Unidentified!");
